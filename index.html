@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="Style.css" rel="stylesheet" type="text/css" />
+  <title>Tic-Tac-Toe</title>
+</head>
+<body>
+  <form id="select">
+    <h2>Select Opponent</h2>
+    <label>
+      <input type="radio" name="opponent" value="player"> Player
+    </label>
+    <label>
+      <input type="radio" name="opponent" value="ai"> AI
+    </label>
+    <button type="button" id="okButton" onclick="okGame()">Done</button>
+  </form>
+
+  <form id="difficultyForm" style="display: none;">
+    <h2>Select Difficulty</h2>
+    <label>
+      <input type="radio" name="difficulty" value="easy"> Easy
+    </label>
+    <label>
+      <input type="radio" name="difficulty" value="medium"> Medium
+    </label>
+    <label>
+      <input type="radio" name="difficulty" value="difficult"> Difficult
+    </label>
+    <button type="button" id="startButton" onclick="startGame()">Start Game</button>
+  </form>
+
+  <table id="ticTacToeGrid" style="display: none;">
+    <tbody>
+      <tr>
+        <td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td>
+      </tr>
+      <tr>
+        <td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td>
+      </tr>
+      <tr>
+        <td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td>
+      </tr>
+      <tr>
+        <td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td>
+      </tr>
+      <tr>
+        <td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td><td onclick="makeMove(this)"></td>
+      </tr>
+    </tbody>
+  </table>
+
+<script src="javascript.js"></script>
+</body>
+</html>
