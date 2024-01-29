@@ -5,14 +5,15 @@ function okGame() {
   var opponentRadio = document.querySelector('input[name="opponent"]:checked');
   if (document.querySelector('input[value="player"]:checked')) {
     currentPlayer = 'player';
+    opponentRadio.value = 'player2'; // Fix: Assign 'player2' to opponentRadio.value
     document.getElementById("select").style.display = "none";
     document.getElementById("ticTacToeGrid").style.display = "table";
   } else if (document.querySelector('input[value="ai"]:checked')) {
-    isAiGame = opponentRadio.value === 'ai';
+    isAiGame = true;
+    opponentRadio.value = 'ai';
     document.getElementById("select").style.display = "none";
     document.getElementById("difficultyForm").style.display = "flex";
-  }
-    else {
+  } else {
     alert("Please select an opponent before starting the game.");
   }
 }
@@ -23,7 +24,7 @@ function startGame() {
     document.getElementById("difficultyForm").style.display = "none";
     document.getElementById("ticTacToeGrid").style.display = "table";
     if (isAiGame) {
-      currentPlayer = 'player';
+      currentPlayer = 'player'; // Fix: Set currentPlayer to 'player'
     }
   } else {
     alert("Please select a difficulty level before starting the game.");
@@ -35,18 +36,24 @@ function makeMove(cell) {
     if (currentPlayer === 'player') {
       cell.innerHTML = 'X';
       if (checkWin('X')) {
-        alert('Player wins!');
-        // Add any additional logic or reset the game as needed
+        alert('Player 1 Wins!');
       } else {
-        currentPlayer = 'ai'; // Switch to AI's turn
-        if (isAiGame) {
+        currentPlayer = isAiGame ? 'ai' : 'player2';
+        if (isAiGame && currentPlayer === 'ai') {
           makeAiMove();
         }
+      }
+    } else if (currentPlayer === 'player2') {
+      cell.innerHTML = 'O';
+      if (checkWin('O')) {
+        alert('Player 2 Wins!');
+      } else {
+        currentPlayer = 'player';
       }
     } else if (currentPlayer === 'ai') {
       cell.innerHTML = 'O';
       if (checkWin('O')) {
-        alert('Player 2 Wins!');
+        alert('AI Wins!');
       } else {
         currentPlayer = 'player';
       }
@@ -210,12 +217,31 @@ function checkWin(playerSymbol) {
 }
 
 function makeAiMove() {
+  if (checkWin('O')) {
+    alert('AI Wins!');
+  }
+
   if (document.querySelector('input[value="easy"]:checked')) {
     makeRandomMove();
   } else if (document.querySelector('input[value="medium"]:checked')) {
     makeMediumMove();
   } else if (document.querySelector('input[value="difficult"]:checked')) {
     makeHardMove();
+  }
+}
+
+function makeMediumMove() {
+  var emptyCells = document.querySelectorAll('td:empty');
+  if (emptyCells.length > 0) {
+    makeRandomMove();
+  }
+}
+
+function makeHardMove() {
+  var emptyCells = document.querySelectorAll('td:empty');
+
+  if (emptyCells.length > 0) {
+    makeRandomMove();
   }
 }
 
@@ -227,99 +253,12 @@ function makeRandomMove() {
     var selectedCell = emptyCells[randomIndex];
 
     if (selectedCell.innerHTML === '') {
-      selectedCell.innerHTML = 'O'; // Assuming 'O' represents the AI's move
+      selectedCell.innerHTML = 'O';
       currentPlayer = 'player';
     }
   }
-}
 
-
-function makeMediumMove() {
-  var emptyCells = document.querySelectorAll('td:empty');
-
-  if (emptyCells.length > 0) {
-    var blockingChance = 1;
-
-    var blockingMove = checkBlockingMove('X');
-    
-    if (blockingMove && Math.random() < 1) {
-      blockingMove.innerHTML = 'O';
-    } else {
-      makeRandomMove();
-    }
-  }
-}
-
-function makeHardMove() {
-  var emptyCells = document.querySelectorAll('td:empty');
-
-  if (emptyCells.length > 0) {
-    makeRandomMove();
-    var winningMove = checkWinningMove('O');
-
-    if (winningMove) {
-      winningMove.innerHTML = 'O'; // Make a winning move
-      currentPlayer = 'player';
-    } else {
-      // If no winning move, block the player
-      var blockingMove = checkBlockingMove('X');
-
-      if (blockingMove) {
-        blockingMove.innerHTML = 'O'; // Block the player's potential winning move
-      }
-      // Note: If neither winning nor blocking move is available, the AI will not make a move.
-    }
-  }
-}
-
-function checkWinningMove(aiSymbol) {
-  for (let row = 0; row < 5; row++) {
-    for (let col = 0; col < 1; col++) {
-      var currentCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col];
-      var nextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 1];
-      var nextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 2];
-      var nextNextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 3];
-      var nextNextNextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 4];
-      var nextNextNextNextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 5];
-
-      if (
-        currentCell.innerHTML === '' &&
-        nextCell.innerHTML === aiSymbol &&
-        nextNextCell.innerHTML === aiSymbol &&
-        nextNextNextCell.innerHTML === aiSymbol &&
-        nextNextNextNextCell.innerHTML === aiSymbol &&
-        nextNextNextNextNextCell.innerHTML === aiSymbol
-      ) {
-        return currentCell;
-      }
-    }
-  }
-
-  return null;
-}
-
-function checkBlockingMove(playerSymbol) {
-  for (let row = 0; row < 5; row++) {
-    for (let col = 0; col < 1; col++) {
-      var currentCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col];
-      var nextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 1];
-      var nextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 2];
-      var nextNextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 3];
-      var nextNextNextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 4];
-      var nextNextNextNextNextCell = document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 5];
-
-      if (
-        currentCell.innerHTML === '' &&
-        nextCell.innerHTML === playerSymbol &&
-        nextNextCell.innerHTML === playerSymbol &&
-        nextNextNextCell.innerHTML === playerSymbol &&
-        nextNextNextNextCell.innerHTML === playerSymbol &&
-        nextNextNextNextNextCell.innerHTML === playerSymbol
-      ) {
-        return currentCell;
-      }
-    }
-  }
-
-  return null;
+  if (checkWin('O')) {
+    alert('AI Wins!');
+  } 
 }
