@@ -57,16 +57,23 @@ form {
 }
 
 .strtbtn {
+    margin-top: 10px;
     display: block;
-    margin: 50px auto;
+    margin: 10px auto;
     width: fit-content;
-    border: 1px solid #283618;
-    padding: 14px 50px;
+    border: 1px solid #d1495b;
+    padding: 5px 20px;
     border-radius: 50px;
     text-decoration: none;
-    color: #606C38;
+    color: #d1495b;
     transition: background-color 0.5s;
 }
+
+.strtbtn:hover{
+    background: #d1495b;
+    color: #FEFAE0;
+}
+
 #okButton {
     margin-top: 10px;
     display: block;
@@ -87,14 +94,15 @@ form {
 
 #ticTacToeGrid {
     border-collapse: collapse;
-}
+  }
   
-#ticTacToeGrid td {
+  #ticTacToeGrid td {
     width: 60px;
     height: 60px; 
     border: 5px solid #00798c;
     text-align: center; 
     font-size: 30px;
     cursor: pointer; 
-}
+  }
+  
   
