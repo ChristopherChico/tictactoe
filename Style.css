@@ -32,6 +32,10 @@
 
 }
 
+h2 {
+    font-size: 120px;
+}
+
 table {
     border-collapse: collapse;
     border: 2px solid black;
