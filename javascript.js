@@ -31,8 +31,8 @@ function startGame() {
   if (difficultyRadio) {
     document.getElementById("difficultyForm").style.display = "none";
     document.getElementById("ticTacToeGrid").style.display = "table";
-    document.getElementById("player2score").style.display = "none";
     showBoard();
+    document.getElementById("player2score").style.display = "none";
     if (isAiGame) {
       currentPlayer = 'player';
     }
