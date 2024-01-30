@@ -1,10 +1,34 @@
+ * {
+    font-family: 'Kanit', sans-serif;
+ }
+
  body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
+    background-color: #fdf0d5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.image-container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+    margin-bottom: 100px;
+}
+  
+.image-container img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+#select {
+    color: #003d5b;
+
 }
 
 table {
@@ -32,6 +56,45 @@ form {
     margin-top: 10px;
 }
 
+.strtbtn {
+    display: block;
+    margin: 50px auto;
+    width: fit-content;
+    border: 1px solid #283618;
+    padding: 14px 50px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #606C38;
+    transition: background-color 0.5s;
+}
 #okButton {
     margin-top: 10px;
+    display: block;
+    margin: 10px auto;
+    width: fit-content;
+    border: 1px solid #d1495b;
+    padding: 5px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #d1495b;
+    transition: background-color 0.5s;
 }
+
+#okButton:hover{
+    background: #d1495b;
+    color: #FEFAE0;
+}
+
+#ticTacToeGrid {
+    border-collapse: collapse;
+}
+  
+#ticTacToeGrid td {
+    width: 60px;
+    height: 60px; 
+    border: 5px solid #00798c;
+    text-align: center; 
+    font-size: 30px;
+    cursor: pointer; 
+}
+  
