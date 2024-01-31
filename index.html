@@ -16,10 +16,10 @@
   <form id="select">
     <h2>Select Opponent</h2>
     <label>
-      <input type="radio" name="opponent" value="player"> Vs Player
+      <input type="radio" name="opponent" value="player"> Player
     </label>
     <label>
-      <input type="radio" name="opponent" value="ai"> Vs Computer: AI
+      <input type="radio" name="opponent" value="ai"> AI
     </label>
     <button type="button" id="okButton" onclick="okGame()">Done</button>
   </form>
@@ -35,11 +35,14 @@
     <label>
       <input type="radio" name="difficulty" value="difficult"> Difficult
     </label>
-    <button type="button" id="startButton" onclick="startGame()">Start Game</button>
+    <button type="button" id="startButton" onclick="startGame()" class="strtbtn">Start Game</button>
   </form>
-<h4 id="player1score">Player 1 Score: </h4>
+
+  <h4 id="player1score">Player 1 Score: </h4>
   <h4 id="player2score">Player 2 Score: </h4>
   <h4 id="aiscore">Ai Score: </h4>
+  <div id="playerTurn"></div>
+
 
   <table id="ticTacToeGrid" style="display: none;">
     <tbody>
@@ -60,8 +63,10 @@
       </tr>
     </tbody>
   </table>
+
+  
   <h4 id="rounds">Round No:</h4>
-  <h4 style="margin-top: -20px" id="best">Best of 3</h4>
+  <h4 style="margin-top: -20px" id="best">First to get 5 points WINS!!!</h4>
 
 <script src="javascript.js"></script>
 </body>
