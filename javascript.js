@@ -15,6 +15,7 @@ function okGame() {
     document.getElementById("select").style.display = "none";
     document.getElementById("ticTacToeGrid").style.display = "table";
     showBoard();
+    displayPlayerTurn();
     document.getElementById("aiscore").style.display = "none";
   } else if (document.querySelector('input[value="ai"]:checked')) {
     isAiGame = true;
@@ -32,7 +33,9 @@ function startGame() {
     document.getElementById("difficultyForm").style.display = "none";
     document.getElementById("ticTacToeGrid").style.display = "table";
     showBoard();
+    displayPlayerTurn();
     document.getElementById("player2score").style.display = "none";
+    
     if (isAiGame) {
       currentPlayer = 'player';
     }
@@ -51,14 +54,22 @@ function makeMove(cell) {
         document.getElementById("player1score").innerHTML = `Player 1 Score: ${scoreadd}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         resetBoard();
-        if (p1score == 3) {
+        if (p1score == 5) {
           alert(`Player 1 Wins The Game!`);
-          location.reload();
-        } else if (p1score < 3) {
+          setTimeout(function(){location.reload();},3000); //Reload after Page 3 seconds
+          
+        } else if (p1score < 5) {
           alert('Player 1 Wins The Round');
+          resetBoard();
         }
-      } else {
+      } else if (checkDraw()){
+        //if game is draw
+        alert("IT'S A TIE");
+        resetBoard();
+      }
+       else {  // Switch to the next player
         currentPlayer = isAiGame ? 'ai' : 'player2';
+        
         if (isAiGame && currentPlayer === 'ai') {
           makeAiMove();
         }
@@ -71,13 +82,20 @@ function makeMove(cell) {
         document.getElementById("player2score").innerHTML = `Player 2 Score: ${scoreadd}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         resetBoard();
-        if (p2score == 3) {
+        if (p2score == 5) {
             alert(`Player 2 Wins The Game!`);
-            location.reload();
-        } else if (p2score < 2) {
+            setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
+        } else if (p2score < 5) {
               alert('Player 2 Wins The Round');
+              resetBoard();
         }
-      } else {
+      }else if (checkDraw()){ //If the Game is draw
+        
+        alert("IT'S A TIE");
+        resetBoard();
+      }
+       else {
+        // Switch back to player 1
         currentPlayer = 'player';
       }
     } else if (currentPlayer === 'ai') {
@@ -87,19 +105,27 @@ function makeMove(cell) {
         const roundadd = ++round;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
-        alert('Ai Wins The Round');
-        resetBoard();
-        if (aiscore == 3) {
-            alert(`Ai  Wins The Game!`);
-            location.reload();
-        } else if (aiscore < 2) {
-              alert('Ai Wins The Round');
+        alert('COMPUTER: AI Wins The Round');
+        //resetBoard();
+        if (aiscore == 5) {
+            alert(`COMPUTER: AI  Wins The Game!`);
+            setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
+        } else if (aiscore < 5) {
+              alert('COMPUTER: AI Wins The Round');
+              resetBoard();
         }
-      } else {
+      }else if (checkDraw()){ //If the Game is draw
+        
+        alert("IT'S A TIE");
+        resetBoard();
+      }
+       else { // Switch back to player 1
         currentPlayer = 'player';
       }
     }
   }
+  // Call the function to display whose turn it is
+  displayPlayerTurn();
 }
 
 function checkWin(playerSymbol) {
@@ -257,10 +283,21 @@ function checkWin(playerSymbol) {
   return false;
 }
 
-function makeAiMove() {
-  if (checkWin('O')) {
-    alert('AI Wins!');
+// CHECK IF IT IS DRAW or TIE
+function checkDraw() {
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 6; col++) {
+      if (document.getElementById(`ticTacToeGrid`).rows[row].cells[col].innerHTML === '') {
+        return false; // If any cell is empty, the game is not a draw
+      }
+    }
   }
+  // If all cells are filled and no player has won, it's a draw
+  return true;
+}
+
+
+function makeAiMove() {
 
   if (document.querySelector('input[value="easy"]:checked')) {
     makeRandomMove();
@@ -298,10 +335,27 @@ function makeRandomMove() {
       currentPlayer = 'player';
     }
   }
-
   if (checkWin('O')) {
-    alert('AI Wins!');
-  } 
+    const scoreadd = ++aiscore;
+    const roundadd = ++round;
+    document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
+    document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
+    alert('COMPUTER: AI Wins The Round');
+    //resetBoard();
+    if (aiscore == 5) {
+        alert(`COMPUTER: AI  Wins The Game!`);
+        setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
+    } else if (aiscore < 5) {
+          alert('COMPUTER: AI Wins The Round');
+          resetBoard();
+    }
+  }else if (checkDraw()){ //If the Game is draw
+    alert("IT'S A TIE");
+    resetBoard();
+  }
+   else { // Switch back to player 1
+    currentPlayer = 'player';
+  }
 }
 
 function hideBoard() {
@@ -325,5 +379,19 @@ function resetBoard() {
     for (let col = 0; col < 6; col++) {
       document.getElementById(`ticTacToeGrid`).rows[row].cells[col].innerHTML = '';
     }
+  }
+  // Switch back to Player 1 - X
+  currentPlayer = 'player';
+}
+
+
+function displayPlayerTurn() {
+  var turnElement = document.getElementById("playerTurn");
+  if (currentPlayer === 'player') {
+    turnElement.textContent = "Player 1's Turn (X)";
+  } else if (currentPlayer === 'player2') {
+    turnElement.textContent = "Player 2's Turn (O)";
+  } else if (currentPlayer === 'ai') {
+    turnElement.textContent = "AI's Turn (O)";
   }
 }
