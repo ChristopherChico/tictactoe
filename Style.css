@@ -1,6 +1,14 @@
- * {
-    font-family: 'Kanit', sans-serif;
- }
+* {
+    font-family: 'Super Enjoy', 'Sakamoto', sans-serif;
+}
+
+
+@font-face {
+    font-family: 'Sakamoto';
+    src: url('Font/Sakamoto-Regular.ttf') format('truetype');
+}
+
+
 
  body {
     background-color: #fdf0d5;
@@ -16,8 +24,9 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 35%;
-    margin-bottom: 100px;
+    width: 30%;
+    margin-bottom: 70px;
+    margin-top: 1px;
 }
   
 .image-container img {
@@ -28,21 +37,35 @@
 
 #select {
     color: #003d5b;
+    font-size: 25px;
 
 }
 
+#difficultyForm {
+    color: #003d5b;
+    font-size: 30px;
+}
+
+#Score {
+    color: #30638e;
+    font-size: 25px;
+    font-stretch: expanded;
+}
+
+
 table {
-    border-collapse: collapse;
-    border: 2px solid black;
+    border: 7px solid #30638e;
     margin-top: 20px;
+    border-radius: 10px;
+    color: #d1495b;
 }
 
 td {
-    width: 40px;
-    height: 40px;
-    border: 1px solid black;
+    width: 70px;
+    height: 70px;
+    border: 2px solid #00798c;
     text-align: center;
-    font-size: 20px;
+    font-size: 40px;
     cursor: pointer;
 }
 
@@ -59,10 +82,10 @@ form {
 .strtbtn {
     margin-top: 10px;
     display: block;
-    margin: 10px auto;
+    margin: 20px auto;
     width: fit-content;
     border: 1px solid #d1495b;
-    padding: 5px 20px;
+    padding: 10px 20px;
     border-radius: 50px;
     text-decoration: none;
     color: #d1495b;
@@ -77,10 +100,10 @@ form {
 #okButton {
     margin-top: 10px;
     display: block;
-    margin: 10px auto;
+    margin: 15px auto;
     width: fit-content;
     border: 1px solid #d1495b;
-    padding: 5px 20px;
+    padding: 10px 20px;
     border-radius: 50px;
     text-decoration: none;
     color: #d1495b;
@@ -92,17 +115,21 @@ form {
     color: #FEFAE0;
 }
 
+/*
 #ticTacToeGrid {
-    border-collapse: collapse;
+    border-radius: 50px;
+    color: #8657bb;
   }
   
-  #ticTacToeGrid td {
+#ticTacToeGrid td {
     width: 60px;
     height: 60px; 
-    border: 5px solid #00798c;
+    border: 10px solid #00798c;
     text-align: center; 
     font-size: 30px;
-    cursor: pointer; 
+    border-radius: 50px;
   }
   
-  
+#ticTacToeGrid td.symbol {
+    color: #d1495b; 
+}
