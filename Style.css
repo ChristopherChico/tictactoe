@@ -1,11 +1,11 @@
 * {
-    font-family: 'Super Enjoy', 'Sakamoto', sans-serif;
+    font-family: 'Super Enjoy', sans-serif;
 }
 
 
 @font-face {
-    font-family: 'Sakamoto';
-    src: url('Font/Sakamoto-Regular.ttf') format('truetype');
+    font-family: 'Super Enjoy';
+    src: url('Font/Super\ Enjoy.ttf') format('truetype');
 }
 
 
