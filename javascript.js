@@ -105,8 +105,6 @@ function makeMove(cell) {
         const roundadd = ++round;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
-        alert('COMPUTER: AI Wins The Round');
-        //resetBoard();
         if (aiscore == 5) {
             alert(`COMPUTER: AI  Wins The Game!`);
             setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
@@ -334,27 +332,6 @@ function makeRandomMove() {
       selectedCell.innerHTML = 'O';
       currentPlayer = 'player';
     }
-  }
-  if (checkWin('O')) {
-    const scoreadd = ++aiscore;
-    const roundadd = ++round;
-    document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
-    document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
-    alert('COMPUTER: AI Wins The Round');
-    //resetBoard();
-    if (aiscore == 5) {
-        alert(`COMPUTER: AI  Wins The Game!`);
-        setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
-    } else if (aiscore < 5) {
-          alert('COMPUTER: AI Wins The Round');
-          resetBoard();
-    }
-  }else if (checkDraw()){ //If the Game is draw
-    alert("IT'S A TIE");
-    resetBoard();
-  }
-   else { // Switch back to player 1
-    currentPlayer = 'player';
   }
 }
 
