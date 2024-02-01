@@ -56,7 +56,7 @@ function makeMove(cell) {
         resetBoard();
         if (p1score > 4) {
           alert(`Player 1 Wins The Game!`);
-          setTimeout(function(){location.reload();},3000); //Reload after Page 3 seconds
+          setTimeout(function(){location.reload();},1000);
           
         } else if (p1score < 5) {
           alert('Player 1 Wins The Round');
@@ -84,7 +84,7 @@ function makeMove(cell) {
         resetBoard();
         if (p2score > 4) {
             alert(`Player 2 Wins The Game!`);
-            setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
+            setTimeout(function(){location.reload();},1000);
         } else if (p2score < 5) {
               alert('Player 2 Wins The Round');
               resetBoard();
@@ -107,17 +107,17 @@ function makeMove(cell) {
         document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
         if (aiscore > 5) {
             alert(`COMPUTER: AI  Wins The Game!`);
-            setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
+            setTimeout(function(){location.reload();},1000); 
         } else if (aiscore < 5) {
               alert('COMPUTER: AI Wins The Round');
               resetBoard();
         }
-      }else if (checkDraw()){ //If the Game is draw
+      }else if (checkDraw()){ 
         
         alert("IT'S A TIE");
         resetBoard();
       }
-       else { // Switch back to player 1
+       else { 
         currentPlayer = 'player';
       }
     }
