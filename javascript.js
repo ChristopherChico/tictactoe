@@ -54,7 +54,7 @@ function makeMove(cell) {
         document.getElementById("player1score").innerHTML = `Player 1 Score: ${scoreadd}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         resetBoard();
-        if (p1score == 5) {
+        if (p1score > 4) {
           alert(`Player 1 Wins The Game!`);
           setTimeout(function(){location.reload();},3000); //Reload after Page 3 seconds
           
@@ -82,7 +82,7 @@ function makeMove(cell) {
         document.getElementById("player2score").innerHTML = `Player 2 Score: ${scoreadd}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         resetBoard();
-        if (p2score == 5) {
+        if (p2score > 4) {
             alert(`Player 2 Wins The Game!`);
             setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
         } else if (p2score < 5) {
@@ -105,7 +105,7 @@ function makeMove(cell) {
         const roundadd = ++round;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
-        if (aiscore == 5) {
+        if (aiscore > 5) {
             alert(`COMPUTER: AI  Wins The Game!`);
             setTimeout(function(){location.reload();},3000); //Reload Page after 3 seconds
         } else if (aiscore < 5) {
