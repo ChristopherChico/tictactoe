@@ -22,11 +22,16 @@ body {
     margin: 1px auto 70px;
     width: 30%;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .image-container:hover {
     transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.2);
 }
 
 .image-container img {
@@ -40,23 +45,22 @@ body {
     transform: scale(1.1);
 }
 
-#select {
-    color: #003d5b;
-    font-size: 25px;
-    margin-top: 20px; /* Adjusted margin for better spacing */
-}
-
-#difficultyForm {
-    color: #003d5b;
-    font-size: 30px;
-    margin-top: 20px; /* Adjusted margin for better spacing */
-}
-
+#select,
+#difficultyForm,
 #Score {
-    color: #30638e;
+    color: #003d5b;
     font-size: 25px;
-    font-stretch: expanded;
-    margin-top: 20px; /* Adjusted margin for better spacing */
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out; 
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 table {
@@ -64,11 +68,15 @@ table {
     margin-top: 20px;
     border-radius: 10px;
     color: #d1495b;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 table:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.2); 
 }
 
 td {
@@ -78,19 +86,34 @@ td {
     text-align: center;
     font-size: 40px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s ease-in-out;
+    transition: background-color 0.3s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out;
+    border-radius: 8px;
 }
 
 td:hover {
     background-color: #00798c;
     transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    filter: brightness(1.2); /* Add brightness on hover */
 }
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px; /* Adjusted margin for better spacing */
+    margin-top: 20px;
+    animation: slideIn 1s ease-in-out; 
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 #startButton,
@@ -103,7 +126,7 @@ form {
     border-radius: 50px;
     text-decoration: none;
     color: #d1495b;
-    transition: background-color 0.5s, transform 0.3s ease-in-out;
+    transition: background-color 0.5s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 #startButton:hover,
@@ -112,11 +135,12 @@ form {
     background: #d1495b;
     color: #fefae0;
     transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: pulsate 0.5s ease-in-out infinite alternate; 
 }
 
-.strtbtn:hover,
-#okButton:hover {
-    background: #d1495b;
-    color: #fefae0;
-    transform: scale(1.05);
+@keyframes pulsate {
+    to {
+        transform: scale(1.1);
+    }
 }
