@@ -2,15 +2,12 @@
     font-family: 'Super Enjoy', sans-serif;
 }
 
-
 @font-face {
     font-family: 'Super Enjoy';
     src: url('Font/Super\ Enjoy.ttf') format('truetype');
 }
 
-
-
- body {
+body {
     background-color: #fdf0d5;
     display: flex;
     flex-direction: column;
@@ -27,18 +24,27 @@
     width: 30%;
     margin-bottom: 70px;
     margin-top: 1px;
+    transition: transform 0.3s ease-in-out;
 }
-  
+
+.image-container:hover {
+    transform: scale(1.1);
+}
+
 .image-container img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-container img:hover {
+    transform: scale(1.1);
 }
 
 #select {
     color: #003d5b;
     font-size: 25px;
-
 }
 
 #difficultyForm {
@@ -52,12 +58,16 @@
     font-stretch: expanded;
 }
 
-
 table {
     border: 7px solid #30638e;
     margin-top: 20px;
     border-radius: 10px;
     color: #d1495b;
+    transition: transform 0.3s ease-in-out;
+}
+
+table:hover {
+    transform: scale(1.05);
 }
 
 td {
@@ -67,6 +77,12 @@ td {
     text-align: center;
     font-size: 40px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+td:hover {
+    background-color: #00798c;
+    transform: scale(1.1);
 }
 
 form {
@@ -75,28 +91,8 @@ form {
     align-items: center;
 }
 
-#startButton {
-    margin-top: 10px;
-}
-
-.strtbtn {
-    margin-top: 10px;
-    display: block;
-    margin: 20px auto;
-    width: fit-content;
-    border: 1px solid #d1495b;
-    padding: 10px 20px;
-    border-radius: 50px;
-    text-decoration: none;
-    color: #d1495b;
-    transition: background-color 0.5s;
-}
-
-.strtbtn:hover{
-    background: #d1495b;
-    color: #FEFAE0;
-}
-
+#startButton,
+.strtbtn,
 #okButton {
     margin-top: 10px;
     display: block;
@@ -107,29 +103,13 @@ form {
     border-radius: 50px;
     text-decoration: none;
     color: #d1495b;
-    transition: background-color 0.5s;
+    transition: background-color 0.5s, transform 0.3s ease-in-out;
 }
 
-#okButton:hover{
+#startButton:hover,
+.strtbtn:hover,
+#okButton:hover {
     background: #d1495b;
-    color: #FEFAE0;
-}
-
-/*
-#ticTacToeGrid {
-    border-radius: 50px;
-    color: #8657bb;
-  }
-  
-#ticTacToeGrid td {
-    width: 60px;
-    height: 60px; 
-    border: 10px solid #00798c;
-    text-align: center; 
-    font-size: 30px;
-    border-radius: 50px;
-  }
-  
-#ticTacToeGrid td.symbol {
-    color: #d1495b; 
+    color: #fefae0;
+    transform: scale(1.05);
 }
