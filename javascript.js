@@ -373,81 +373,76 @@ function makeRandomMove() {
 }
 
 function makeMediumMove() {
-  var emptyCells = document.querySelectorAll('td:empty');
-  
-  var shuffledCells = Array.from(emptyCells);
-  shuffleArray(shuffledCells);
+  var currentPlayerSymbol = 'O';
+  var opponentPlayerSymbol = 'X';
 
-  var bestScore = -Infinity;
-  var bestMove;
+  // Check if the opponent is about to win
+  var blockingMove = findBlockingMove(opponentPlayerSymbol);
 
-  shuffledCells.forEach(cell => {
-    if (cell.innerHTML === '') {
-      cell.innerHTML = 'O';
+  // Randomly determine whether to block or win
+  var blockChance = Math.random();
+  var winChance = Math.random();
 
-      var score = minimax(0, false);
-
-      cell.innerHTML = '';
-
-      var skipWinningMove = Math.random() < 0.55;
-
-      if (score > bestScore && !(score === 1 && !skipWinningMove)) {
-        bestScore = score;
-        bestMove = cell;
-      }
-    }
-  });
-
-  if (bestMove) {
+  if (blockingMove && blockChance < 0.4) {
     setTimeout(function () {
-      bestMove.innerHTML = 'O';
+      blockingMove.innerHTML = currentPlayerSymbol;
       currentPlayer = 'player';
       displayPlayerTurn();
       checkWinAi();
-    }, 100); 
-  }
-}
-
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-function minimax(depth, isMaximizing) {
-  if (depth > 0) {
-    return 0;
-  }
-
-  if (checkWin('O')) {
-    return 1;
-  } else if (checkWin('X')) {
-    return -1;
-  } else if (checkDraw()) {
-    return 0;
-  }
-
-  if (isMaximizing) {
-    var bestScore = -Infinity;
-    document.querySelectorAll('td:empty').forEach(cell => {
-      if (cell.innerHTML === '') {
-        cell.innerHTML = 'O';
-        bestScore = Math.max(bestScore, minimax(depth + 1, false));
-        cell.innerHTML = '';
-      }
-    });
-    return bestScore;
+    }, 100);
   } else {
-    var bestScore = Infinity;
-    document.querySelectorAll('td:empty').forEach(cell => {
-      if (cell.innerHTML === '') {
-        cell.innerHTML = 'X';
-        bestScore = Math.min(bestScore, minimax(depth + 1, true));
-        cell.innerHTML = '';
+    // Shuffle the empty cells
+    var emptyCells = Array.from(document.querySelectorAll('td:empty'));
+    shuffleArray(emptyCells);
+
+    // Randomly prioritize winning moves
+    var winningMove = null;
+
+    emptyCells.forEach(cell => {
+      cell.innerHTML = currentPlayerSymbol;
+
+      if (checkWin(currentPlayerSymbol) && winChance < 0.6) {
+        winningMove = cell;
       }
+
+      cell.innerHTML = '';
     });
-    return bestScore;
+
+    // If there's a winning move, play it
+    if (winningMove) {
+      setTimeout(function () {
+        winningMove.innerHTML = currentPlayerSymbol;
+        currentPlayer = 'player';
+        displayPlayerTurn();
+        checkWinAi();
+      }, 100);
+    } else {
+
+      // Use minimax with shuffled cells for blocking moves
+      var bestScore = -Infinity;
+      var bestMove;
+
+      emptyCells.forEach(cell => {
+        cell.innerHTML = currentPlayerSymbol;
+        var score = minimax(0, false, currentPlayerSymbol, opponentPlayerSymbol);
+        cell.innerHTML = '';
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = cell;
+        }
+      });
+
+      // Play the best blocking move
+      if (bestMove) {
+        setTimeout(function () {
+          bestMove.innerHTML = currentPlayerSymbol;
+          currentPlayer = 'player';
+          displayPlayerTurn();
+          checkWinAi();
+        }, 100);
+      }
+    }
   }
 }
 
@@ -473,18 +468,15 @@ function makeHardMove() {
     // Use minimax with shuffled cells
     var bestScore = -Infinity;
     var bestMove;
-
     emptyCells.forEach(cell => {
       cell.innerHTML = currentPlayerSymbol;
       var score = minimax(0, false, currentPlayerSymbol, opponentPlayerSymbol);
       cell.innerHTML = '';
-
       if (score > bestScore) {
         bestScore = score;
         bestMove = cell;
       }
     });
-
     if (bestMove) {
       setTimeout(function () {
         bestMove.innerHTML = currentPlayerSymbol;
@@ -496,29 +488,10 @@ function makeHardMove() {
   }
 }
 
-function findBlockingMove(opponentPlayerSymbol) {
-  // Check each empty cell to see if it blocks opponent from winning
-  var blockingMove = null;
-
-  document.querySelectorAll('td:empty').forEach(cell => {
-    cell.innerHTML = opponentPlayerSymbol;
-
-    if (checkWin(opponentPlayerSymbol)) {
-      blockingMove = cell;
-    }
-
-    cell.innerHTML = '';
-  });
-
-  return blockingMove;
-}
-
-
 function minimax(depth, isMaximizing, currentPlayerSymbol, opponentPlayerSymbol) {
   if (depth > 0) {
     return 0;
   }
-
   if (checkWin(currentPlayerSymbol)) {
     return 1;
   } else if (checkWin(opponentPlayerSymbol)) {
@@ -526,7 +499,6 @@ function minimax(depth, isMaximizing, currentPlayerSymbol, opponentPlayerSymbol)
   } else if (checkDraw()) {
     return 0;
   }
-
   if (isMaximizing) {
     var bestScore = -Infinity;
     document.querySelectorAll('td:empty').forEach(cell => {
@@ -550,15 +522,36 @@ function minimax(depth, isMaximizing, currentPlayerSymbol, opponentPlayerSymbol)
         cell.innerHTML = opponentPlayerSymbol;
         var score = minimax(depth + 1, !isMaximizing, currentPlayerSymbol, opponentPlayerSymbol);
         cell.innerHTML = '';
-
+        
         // Prioritize blocking moves
         if (score === 1) {
           score -= 0.5;
         }
-
         bestScore = Math.min(bestScore, score);
       }
     });
     return bestScore;
   }
 }
+
+function findBlockingMove(opponentPlayerSymbol) {
+  // Check each empty cell to see if it blocks opponent from winning
+  var blockingMove = null;
+  document.querySelectorAll('td:empty').forEach(cell => {
+    cell.innerHTML = opponentPlayerSymbol;
+    if (checkWin(opponentPlayerSymbol)) {
+      blockingMove = cell;
+    }
+    cell.innerHTML = '';
+  });
+  return blockingMove;
+}
+
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
