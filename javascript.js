@@ -66,7 +66,7 @@ function makeMove(cell) {
             }, 50)
       }
       } else if (checkDraw()) {
-        alert("IT'S A TIE");
+        alert("We have a draw!");
         resetBoard();
       } else {
         currentPlayer = isAiGame ? 'ai' : 'player2';
@@ -98,7 +98,7 @@ function makeMove(cell) {
         }
       }else if (checkDraw()){ //If the Game is draw
         
-        alert("IT'S A TIE");
+        alert("We have a draw!");
         resetBoard();
       }
        else {
@@ -130,7 +130,7 @@ function checkWinAi() {
         }, 50)
     }
   }else if (checkDraw()){ 
-    alert("IT'S A TIE");
+    alert("We have a draw!");
     resetBoard();
   }
    else { 
