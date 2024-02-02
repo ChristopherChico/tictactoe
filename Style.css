@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #fdf0d5;
+    background-color: #fdf0d5; 
     display: flex;
     flex-direction: column;
     align-items: center;
