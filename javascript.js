@@ -24,7 +24,8 @@ function okGame() {
     document.getElementById("select").style.display = "none";
     document.getElementById("difficultyForm").style.display = "flex";
   } else {
-    alert("Please select an opponent before starting the game.");
+    // alert("Please select an opponent before starting the game.");
+    openPopup("Please select an opponent before starting the game.");
   }
 }
 
@@ -41,7 +42,8 @@ function startGame() {
       currentPlayer = 'player';
     }
   } else {
-    alert("Please select a difficulty level before starting the game.");
+    // alert("Please select a difficulty level before starting the game.");
+    openPopup("Please select a difficulty level before starting the game.");
   }
 }
 
@@ -56,18 +58,23 @@ function makeMove(cell) {
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         if (p1score > 4) {
           setTimeout(function() {
-          alert(`Player 1 Wins The Game!`);
-          setTimeout(function(){location.reload();},200);
-        }, 50);
+            openPopup("Player 1 (X) Wins The Round!", function() {
+              // Code to execute after pop-up is closed
+              setTimeout(function(){location.reload();},200);
+            });
+        }, 200);
       } else if (p1score < 5) {
-            setTimeout(function() {
-            alert('Player 1 Wins The Round');
-            resetBoard();
-            }, 50)
+          openPopup("Player 1 (X) Wins The Round!", function() {
+            // Code to execute after pop-up is closed
+            setTimeout(function() {resetBoard();}, 200);
+          });
       }
       } else if (checkDraw()) {
-        alert("We have a draw!");
-        resetBoard();
+        // alert("We have a draw!");
+          openPopup("WE HAVE A DRAW!", function(){
+            // Code to execute after pop-up is closed
+            setTimeout(function() {resetBoard();}, 200);
+          });
       } else {
         currentPlayer = isAiGame ? 'ai' : 'player2';
         if (isAiGame && currentPlayer === 'ai') {
@@ -84,22 +91,29 @@ function makeMove(cell) {
         const roundadd = ++round;
         document.getElementById("player2score").innerHTML = `Player 2 Score: ${scoreadd}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
-        resetBoard();
+        
         if (p2score > 4) {
           setTimeout(function() {
-            alert(`Player 2 Wins The Game!`);
-            setTimeout(function(){location.reload();},200);
-          }, 50);
+            openPopup("Player 2 (O) Wins The Round!", function() {
+              // Code to execute after pop-up is closed
+              setTimeout(function(){location.reload();},200);
+            });
+        }, 200);
         } else if (p2score < 5) { 
-              setTimeout(function() {
-              alert('Player 2 Wins The Round');
-              resetBoard();
-            }, 50)
+            openPopup("Player 2 (O) Wins The Round!", function() {
+              // Code to execute after pop-up is closed
+              setTimeout(function() {resetBoard();}, 200);
+              currentPlayer = 'player';
+              displayPlayerTurn(); 
+            });
         }
       }else if (checkDraw()){ //If the Game is draw
         
-        alert("We have a draw!");
-        resetBoard();
+        // alert("We have a draw!");
+        openPopup("WE HAVE A DRAW!", function(){
+          // Code to execute after pop-up is closed
+          setTimeout(function() {resetBoard();}, 200);
+        });
       }
        else {
         currentPlayer = 'player';
@@ -119,19 +133,29 @@ function checkWinAi() {
     document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
     document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
     if (aiscore > 4) {
+      // alert(`AI Wins The Game!`);
       setTimeout(function() {
-        alert(`AI Wins The Game!`);
-        setTimeout(function(){location.reload();},200); 
-      }, 50)
+        openPopup("COMPUTER AI (O) Wins The Game!", function() {
+          // Code to execute after pop-up is closed
+          setTimeout(function() {location.reload();},5000); //5000ms = 5 seconds
+        });
+    }, 1000);
+
     } else if (aiscore < 5) {
+          // alert('AI Wins The Round');
           setTimeout(function() {
-          alert('AI Wins The Round');
-          resetBoard();
-        }, 50)
+            openPopup("COMPUTER AI (O) Wins The Round!", function() {
+              // Code to execute after pop-up is closed
+              setTimeout(function() {resetBoard();},200);
+            });
+        }, 200);
     }
   }else if (checkDraw()){ 
-    alert("We have a draw!");
-    resetBoard();
+    // alert("We have a draw!");
+    openPopup("WE HAVE A DRAW!", function(){
+      // Code to execute after pop-up is closed
+      setTimeout(function() {resetBoard();}, 200);
+    });
   }
    else { 
     currentPlayer = 'player';
@@ -230,8 +254,29 @@ function checkWin(playerSymbol) {
       ) {
         return true;
 
-      // Check for diagonal win (4 in a row)
       } else if (
+        document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 1].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 1].cells[col + 2].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 2].cells[col + 3].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 3].cells[col + 4].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 4].cells[col + 5].innerHTML === playerSymbol
+      ) {
+        return true;
+
+      } 
+       else if (
+        document.getElementById(`ticTacToeGrid`).rows[row].cells[col + 5].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 1].cells[col + 4].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 2].cells[col + 3].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 3].cells[col + 2].innerHTML === playerSymbol &&
+        document.getElementById(`ticTacToeGrid`).rows[row + 4].cells[col + 1].innerHTML === playerSymbol
+      ) {
+        return true;
+
+      } 
+      
+      // Check for diagonal win (4 in a row)
+      else if (
         document.getElementById(`ticTacToeGrid`).rows[row + 1].cells[col].innerHTML === playerSymbol &&
         document.getElementById(`ticTacToeGrid`).rows[row + 2].cells[col + 1].innerHTML === playerSymbol &&
         document.getElementById(`ticTacToeGrid`).rows[row + 3].cells[col + 2].innerHTML === playerSymbol &&
@@ -555,3 +600,19 @@ function shuffleArray(array) {
   }
 }
 
+// ====== POP UP BOX FUNCTION ======
+let popupCallback;
+
+function openPopup(message, callback) {
+  document.getElementById("popup-message").innerHTML = message;
+  document.getElementById("popup").style.display = "block";
+  popupCallback = callback;
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+  if (popupCallback) {
+    popupCallback();
+    popupCallback = null; // Reset callback to avoid memory leaks
+  }
+}
