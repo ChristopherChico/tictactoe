@@ -160,9 +160,11 @@ form {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: #D1495B;
     padding: 20px;
     border-radius: 5px;
+    color: #FDF0D5;
+    font-size: 20px;
   }
   
   .close-btn {
@@ -170,9 +172,87 @@ form {
     top: 10px;
     right: 10px;
     cursor: pointer;
+    
   }
   
   .popup-content button {
-    margin-top: 10px;
+    margin-top: 30px;
+    width: fit-content;
+    border: 1px solid #00798C;
+    background-color: #00798C;
+    padding: 5px 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #FDF0D5;
+    transition: background-color 0.5s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  .popup-content button:hover {
+    background: #00798C;
+    color: #FDF0D5;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: pulsate 0.5s ease-in-out infinite alternate; 
+
   }
   
+  #backAi{
+    margin-top: 10px;
+    width: fit-content;
+    border: 1px solid #00798C;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #00798C;
+    transition: background-color 0.5s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  #backAi:hover {
+    background: #00798C;
+    color: #fefae0;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: pulsate 0.5s ease-in-out infinite alternate; 
+
+  }
+
+  #back{
+    margin-top: 10px;
+    width: fit-content;
+    border: 1px solid #00798C;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #00798C;
+    transition: background-color 0.5s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  #back:hover {
+    background: #00798C;
+    color: #fefae0;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: pulsate 0.5s ease-in-out infinite alternate; 
+
+  }
+
+  #resetB{
+    margin-left: 25px;
+    margin-top: 10px;
+    width: fit-content;
+    border: 1px solid #00798C;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #00798C;
+    transition: background-color 0.5s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  #resetB:hover {
+    background: #00798C;
+    color: #fefae0;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: pulsate 0.5s ease-in-out infinite alternate; 
+
+  }
