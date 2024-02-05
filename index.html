@@ -10,6 +10,30 @@
   <title>Tik Tak Toe</title>
 </head>
 <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ... your existing head content ... -->
+</head>
+<body>
+  <!-- ... your existing body content ... -->
+
+  <div id="Score">
+    <h4 id="rounds">Round No:</h4>
+    <button style="display: none;" id="backAi" onclick="showAiBoard()">Back</button>
+    <button style="display: none;" id="back" onclick="goBack()">Back</button>
+    <button style="display: none;" id="resetB" onclick="resetScore()">Restart</button>
+  </div>
+
+  <script src="javascript.js"></script>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
+
   <div class="image-container" onclick="location.reload()" title="Homepage" style="cursor:pointer" draggable="false">
     <img src="images/TTTLogo.png" id="logo" draggable="false">
 </div>
