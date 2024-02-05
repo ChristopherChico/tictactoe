@@ -4,6 +4,7 @@ let round = 0;
 let p1score = 0;
 let p2score = 0;
 let aiscore = 0;
+let drawscore = 0;
 
 hideBoard();
 
@@ -14,15 +15,18 @@ function okGame() {
     opponentRadio.value = 'player2';
     document.getElementById("select").style.display = "none";
     document.getElementById("ticTacToeGrid").style.display = "table";
+    document.getElementById("back").style.display = "inline-block";
+    document.getElementById("resetB").style.display = "inline-block";
     showBoard();
     displayPlayerTurn();
-    document.getElementById("aiscore").style.display = "none";
+    openPopup("First to 5 Wins!");
     document.getElementById("player1score").style.marginBottom = "-15px";
   } else if (document.querySelector('input[value="ai"]:checked')) {
     isAiGame = true;
     opponentRadio.value = 'ai';
     document.getElementById("select").style.display = "none";
     document.getElementById("difficultyForm").style.display = "flex";
+    document.getElementById("back").style.display = "inline-block";
   } else {
     // alert("Please select an opponent before starting the game.");
     openPopup("Please select an opponent before starting the game.");
@@ -34,8 +38,12 @@ function startGame() {
   if (difficultyRadio) {
     document.getElementById("difficultyForm").style.display = "none";
     document.getElementById("ticTacToeGrid").style.display = "table";
+    document.getElementById("backAi").style.display = "inline-block";
+    document.getElementById("resetB").style.display = "inline-block";
+    document.getElementById("back").style.display = "none";
     showBoard();
     displayPlayerTurn();
+    openPopup("First to 5 Wins!");
     document.getElementById("player2score").style.display = "none";
     document.getElementById("player1score").style.marginBottom = "-15px";
     if (isAiGame) {
@@ -54,7 +62,7 @@ function makeMove(cell) {
       if (checkWin('X')) {
         const scoreadd = ++p1score;
         const roundadd = ++round;
-        document.getElementById("player1score").innerHTML = `Player 1 Score: ${scoreadd}`;
+        document.getElementById("scores").innerHTML = `X - ${scoreadd} | O - ${p2score} | Draw - ${drawscore}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         if (p1score > 4) {
           setTimeout(function() {
@@ -89,7 +97,7 @@ function makeMove(cell) {
       if (checkWin('O')) {
         const scoreadd = ++p2score;
         const roundadd = ++round;
-        document.getElementById("player2score").innerHTML = `Player 2 Score: ${scoreadd}`;
+        document.getElementById("scores").innerHTML = `X - ${p1score} | O - ${[scoreadd]} | Draw - ${drawscore}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         
         if (p2score > 4) {
@@ -108,20 +116,20 @@ function makeMove(cell) {
             });
         }
       }else if (checkDraw()){ //If the Game is draw
-        
-        // alert("We have a draw!");
+        const scoreadd = ++drawscore;
+        const roundadd = ++round;
+        document.getElementById("scores").innerHTML = `X - ${p1score} | O - ${[p2score]} | Draw - ${scoreadd}`;
+        document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
         openPopup("WE HAVE A DRAW!", function(){
-          // Code to execute after pop-up is closed
           setTimeout(function() {resetBoard();}, 200);
         });
       }
        else {
         currentPlayer = 'player';
-      } displayPlayerTurn(); // Display turn for player2
+      } displayPlayerTurn(); 
     } else if (currentPlayer === 'ai') {
       cell.innerHTML = 'O';
-      checkWinAi();
-      displayPlayerTurn(); // Display turn for AI
+      displayPlayerTurn(); 
     }
   }
 }
@@ -131,15 +139,13 @@ function checkWinAi() {
     const scoreadd = ++aiscore;
     const roundadd = ++round;
     document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
-    document.getElementById("aiscore").innerHTML = `Ai Score: ${scoreadd}`;
+    document.getElementById("scores").innerHTML = `X - ${p1score} | O - ${scoreadd} | Draw - ${drawscore}`;
     if (aiscore > 4) {
-      // alert(`AI Wins The Game!`);
       setTimeout(function() {
         openPopup("COMPUTER AI (O) Wins The Game!", function() {
-          // Code to execute after pop-up is closed
-          setTimeout(function() {location.reload();},5000); //5000ms = 5 seconds
+          setTimeout(function() {location.reload();},200);
         });
-    }, 1000);
+    }, 200);
 
     } else if (aiscore < 5) {
           // alert('AI Wins The Round');
@@ -151,7 +157,10 @@ function checkWinAi() {
         }, 200);
     }
   }else if (checkDraw()){ 
-    // alert("We have a draw!");
+    const scoreadd = ++drawscore;
+    const roundadd = ++round;
+    document.getElementById("scores").innerHTML = `X - ${p1score} | O - ${[aiscore]} | Draw - ${scoreadd}`;
+    document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
     openPopup("WE HAVE A DRAW!", function(){
       // Code to execute after pop-up is closed
       setTimeout(function() {resetBoard();}, 200);
@@ -164,21 +173,24 @@ function checkWinAi() {
 }
 
 function hideBoard() {
-  document.getElementById("player1score").style.display = "none";
-  document.getElementById("player2score").style.display = "none";
-  document.getElementById("aiscore").style.display = "none";
+  document.getElementById("scores").style.display = "none";
   document.getElementById("rounds").style.display = "none";
-  document.getElementById("best").style.display = "none";
 }
 
 function showBoard() {
-  document.getElementById("player1score").style.display = "flex";
-  document.getElementById("player2score").style.display = "flex";
-  document.getElementById("aiscore").style.display = "flex";
+  document.getElementById("scores").style.display = "flex";
   document.getElementById("rounds").style.display = "flex";
-  document.getElementById("best").style.display = "flex";
   document.getElementsByClassName("image-container")[0].style.marginBottom = "-5px";
   document.getElementsByClassName("image-container")[0].style.width = "400px";
+}
+
+function showAiBoard() {
+  document.getElementById("ticTacToeGrid").style.display = "none";
+  document.getElementById("difficultyForm").style.display = "flex";
+  document.getElementById("backAi").style.display = "none";
+  document.getElementById("resetB").style.display = "none";
+  document.getElementById("back").style.display = "flex";
+  hideBoard();
 }
 
 function resetBoard() {
@@ -195,7 +207,7 @@ function displayPlayerTurn() {
   var turnElement = document.getElementById("playerTurn");
   if (currentPlayer === 'player') {
     turnElement.textContent = "Player 1's Turn (X)";
-  } else if (currentPlayer === 'player2') {
+  } else if (currentPlayer === 'f') {
     turnElement.textContent = "Player 2's Turn (O)";
   } else if (currentPlayer === 'ai') {
     turnElement.textContent = "AI's Turn (O)";
@@ -428,7 +440,7 @@ function makeMediumMove() {
   var blockChance = Math.random();
   var winChance = Math.random();
 
-  if (blockingMove && blockChance < 0.4) {
+  if (blockingMove && blockChance < 0.8) {
     setTimeout(function () {
       blockingMove.innerHTML = currentPlayerSymbol;
       currentPlayer = 'player';
@@ -503,7 +515,6 @@ function makeHardMove() {
       blockingMove.innerHTML = currentPlayerSymbol;
       currentPlayer = 'player';
       displayPlayerTurn();
-      checkWinAi();
     }, 100);
   } else {
     // Shuffle the empty cells
@@ -553,7 +564,7 @@ function minimax(depth, isMaximizing, currentPlayerSymbol, opponentPlayerSymbol)
         cell.innerHTML = '';
 
         // Prioritize winning moves
-        if (score === 0) {
+        if (score === 1) {
           score -= 0.5;
         }
         bestScore = Math.max(bestScore, score);
@@ -569,8 +580,8 @@ function minimax(depth, isMaximizing, currentPlayerSymbol, opponentPlayerSymbol)
         cell.innerHTML = '';
         
         // Prioritize blocking moves
-        if (score === 1) {
-          score -= 0.5;
+        if (score === 0) {
+          score -= 0.6;
         }
         bestScore = Math.min(bestScore, score);
       }
@@ -598,6 +609,21 @@ function shuffleArray(array) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
+}
+
+
+function resetScore() {
+  p1score = 0;
+  p2score = 0;
+  aiscore = 0;
+  drawscore = 0;
+  round = 0;
+
+  // Update the UI to display the reset scores
+  document.getElementById("scores").innerHTML = `X - ${p1score} | O - ${p2score} | Draw - ${drawscore}`;
+  document.getElementById("rounds").innerHTML = `Rounds No: ${round}`;
+
+  resetBoard();
 }
 
 // ====== POP UP BOX FUNCTION ======
