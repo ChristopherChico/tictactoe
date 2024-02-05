@@ -64,10 +64,10 @@ function makeMove(cell) {
         const roundadd = ++round;
         document.getElementById("scores").innerHTML = `X - ${scoreadd} | O - ${p2score} | Draw - ${drawscore}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
+        displayPlayerTurn();
         if (p1score > 4) {
           setTimeout(function() {
             openPopup("Player 1 (X) Wins The Round!", function() {
-              // Code to execute after pop-up is closed
               setTimeout(function(){location.reload();},200);
             });
         }, 200);
@@ -99,7 +99,7 @@ function makeMove(cell) {
         const roundadd = ++round;
         document.getElementById("scores").innerHTML = `X - ${p1score} | O - ${[scoreadd]} | Draw - ${drawscore}`;
         document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
-        
+        displayPlayerTurn();
         if (p2score > 4) {
           setTimeout(function() {
             openPopup("Player 2 (O) Wins The Round!", function() {
@@ -140,6 +140,7 @@ function checkWinAi() {
     const roundadd = ++round;
     document.getElementById("rounds").innerHTML = `Rounds No: ${roundadd}`;
     document.getElementById("scores").innerHTML = `X - ${p1score} | O - ${scoreadd} | Draw - ${drawscore}`;
+    displayPlayerTurn();
     if (aiscore > 4) {
       setTimeout(function() {
         openPopup("COMPUTER AI (O) Wins The Game!", function() {
@@ -207,7 +208,7 @@ function displayPlayerTurn() {
   var turnElement = document.getElementById("playerTurn");
   if (currentPlayer === 'player') {
     turnElement.textContent = "Player 1's Turn (X)";
-  } else if (currentPlayer === 'f') {
+  } else if (currentPlayer === 'player2') {
     turnElement.textContent = "Player 2's Turn (O)";
   } else if (currentPlayer === 'ai') {
     turnElement.textContent = "AI's Turn (O)";
@@ -409,8 +410,10 @@ function makeAiMove() {
     makeRandomMove();
   }, 60);
   } else if (document.querySelector('input[value="medium"]:checked')) {
+    displayPlayerTurn();
     makeMediumMove();
   } else if (document.querySelector('input[value="difficult"]:checked')) {
+    displayPlayerTurn();
     makeHardMove();
   }
 }
