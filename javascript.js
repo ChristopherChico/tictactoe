@@ -19,7 +19,7 @@ function okGame() {
     document.getElementById("resetB").style.display = "inline-block";
     showBoard();
     displayPlayerTurn();
-    openPopup("First to 5 Wins!");
+    openPopup("First to Get 5 Points, Wins!");
     document.getElementById("player1score").style.marginBottom = "-15px";
   } else if (document.querySelector('input[value="ai"]:checked')) {
     isAiGame = true;
@@ -43,7 +43,7 @@ function startGame() {
     document.getElementById("back").style.display = "none";
     showBoard();
     displayPlayerTurn();
-    openPopup("First to 5 Wins!");
+    openPopup("First to Get 5 Points, Wins!");
     document.getElementById("player2score").style.display = "none";
     document.getElementById("player1score").style.marginBottom = "-15px";
     if (isAiGame) {
