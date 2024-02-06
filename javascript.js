@@ -27,6 +27,7 @@ function okGame() {
     document.getElementById("select").style.display = "none";
     document.getElementById("difficultyForm").style.display = "flex";
     document.getElementById("back").style.display = "inline-block";
+    document.getElementById("group").style.display = "none";
   } else {
     // alert("Please select an opponent before starting the game.");
     openPopup("Please select an opponent before starting the game.");
@@ -181,6 +182,7 @@ function hideBoard() {
 function showBoard() {
   document.getElementById("scores").style.display = "flex";
   document.getElementById("rounds").style.display = "flex";
+  document.getElementById("group").style.display = "none";
   document.getElementsByClassName("image-container")[0].style.marginBottom = "-5px";
   document.getElementsByClassName("image-container")[0].style.width = "400px";
 }
@@ -190,6 +192,7 @@ function showAiBoard() {
   document.getElementById("difficultyForm").style.display = "flex";
   document.getElementById("backAi").style.display = "none";
   document.getElementById("resetB").style.display = "none";
+  document.getElementById("group").style.display = "none";
   document.getElementById("back").style.display = "flex";
   hideBoard();
 }
